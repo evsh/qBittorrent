@@ -33,6 +33,7 @@
 #include <QNetworkInterface>
 #include "app/application.h"
 #include "base/preferences.h"
+#include "base/notifications/notificationsmanager.h"
 #include "gui/mainwindow.h"
 
 enum AdvSettingsCols
@@ -166,9 +167,7 @@ void AdvancedSettings::saveAdvancedSettings()
         pref->setNetworkAddress(networkAddr.toString());
 
     // Program notification
-    MainWindow * const mainWindow = static_cast<Application*>(QCoreApplication::instance())->mainWindow();
-    mainWindow->setNotificationsEnabled(cb_program_notifications.isChecked());
-    mainWindow->setTorrentAddedNotificationsEnabled(cb_torrent_added_notifications.isChecked());
+    Notifications::Manager::setNotificationsEnabled(cb_program_notifications.isChecked());
     // Tracker
     pref->setTrackerEnabled(cb_tracker_status.isChecked());
     pref->setTrackerPort(spin_tracker_port.value());
@@ -344,11 +343,11 @@ void AdvancedSettings::loadAdvancedSettings()
 
     // Program notifications
     const MainWindow * const mainWindow = static_cast<Application*>(QCoreApplication::instance())->mainWindow();
-    cb_program_notifications.setChecked(mainWindow->isNotificationsEnabled());
+    cb_program_notifications.setChecked(Notifications::Manager::areNotificationsEnabled());
     addRow(PROGRAM_NOTIFICATIONS, tr("Display notifications"), &cb_program_notifications);
     // Torrent added notifications
-    cb_torrent_added_notifications.setChecked(mainWindow->isTorrentAddedNotificationsEnabled());
-    addRow(TORRENT_ADDED_NOTIFICATIONS, tr("Display notifications for added torrents"), &cb_torrent_added_notifications);
+//     cb_torrent_added_notifications.setChecked(mainWindow->isTorrentAddedNotificationsEnabled());
+//     addRow(TORRENT_ADDED_NOTIFICATIONS, tr("Display notifications for added torrents"), &cb_torrent_added_notifications);
     // Tracker State
     cb_tracker_status.setChecked(pref->isTrackerEnabled());
     addRow(TRACKER_STATUS, tr("Enable embedded tracker"), &cb_tracker_status);

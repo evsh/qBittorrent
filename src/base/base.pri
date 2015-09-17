@@ -54,7 +54,11 @@ HEADERS += \
     $$PWD/torrentfileguard.h \
     $$PWD/torrentfilter.h \
     $$PWD/scanfoldersmodel.h \
-    $$PWD/searchengine.h
+    $$PWD/searchengine.h \
+    $$PWD/notifications/notifier.h \
+    $$PWD/notifications/dummynotifier.h \
+    $$PWD/notifications/notificationsmanager.h \
+    $$PWD/notifications/request.h
 
 SOURCES += \
     $$PWD/tristatebool.cpp \
@@ -107,4 +111,14 @@ SOURCES += \
     $$PWD/torrentfileguard.cpp \
     $$PWD/torrentfilter.cpp \
     $$PWD/scanfoldersmodel.cpp \
-    $$PWD/searchengine.cpp
+    $$PWD/searchengine.cpp \
+    $$PWD/notifications/notifier.cpp \
+    $$PWD/notifications/dummynotifier.cpp \
+    $$PWD/notifications/notificationsmanager.cpp \
+    $$PWD/notifications/request.cpp
+
+unix:!macx:dbus {
+    include(notifications/qtnotify/qtnotify.pri)
+    HEADERS += $$PWD/notifications/dbusnotifier.h
+    SOURCES += $$PWD/notifications/dbusnotifier.cpp
+}

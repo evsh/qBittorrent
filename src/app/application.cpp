@@ -72,6 +72,11 @@
 #include "base/net/geoipmanager.h"
 #include "base/bittorrent/session.h"
 #include "base/bittorrent/torrenthandle.h"
+#include "base/notifications/notificationsmanager.h"
+
+#ifndef DISABLE_GUI
+#include "gui/notifications/guinotificationsmanager.h"
+#endif
 
 namespace
 {
@@ -395,9 +400,13 @@ int Application::exec(const QStringList &params)
         std::cout << qPrintable(tr("This is a security risk, please consider changing your password from program preferences.")) << std::endl;
     }
 #endif // DISABLE_WEBUI
+
+    m_notificationManager = new Notifications::Manager(nullptr, this);
 #else
     m_window = new MainWindow;
+    m_notificationManager = new Notifications::GuiManager(this);
 #endif // DISABLE_GUI
+    Notifications::Manager::setInstance(m_notificationManager.data());
 
     m_running = true;
     m_paramsQueue = params + m_paramsQueue;

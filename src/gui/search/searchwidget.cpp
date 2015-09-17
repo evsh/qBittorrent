@@ -57,6 +57,7 @@
 #include "base/utils/misc.h"
 #include "base/preferences.h"
 #include "base/searchengine.h"
+#include "base/notifications/request.h"
 #include "searchlistdelegate.h"
 #include "mainwindow.h"
 #include "addnewtorrentdialog.h"
@@ -242,7 +243,12 @@ QTabWidget *SearchWidget::searchTabs() const
 void SearchWidget::on_searchButton_clicked()
 {
     if (Utils::Misc::pythonVersion() < 0) {
-        m_mainWindow->showNotificationBaloon(tr("Search Engine"), tr("Please install Python to use the Search Engine."));
+        Notifications::Request()
+            .setTitle(tr("Search Engine"))
+            .setMessage(tr("Please install Python to use the Search Engine."))
+//          .setWidget(this)
+            .setSeverity(Notifications::Severity::Error)
+            .exec();
         return;
     }
 
@@ -320,8 +326,11 @@ void SearchWidget::searchStarted()
 // Error | Stopped by user | Finished normally
 void SearchWidget::searchFinished(bool cancelled)
 {
-    if (m_mainWindow->isNotificationsEnabled() && (m_mainWindow->currentTabWidget() != this))
-        m_mainWindow->showNotificationBaloon(tr("Search Engine"), tr("Search has finished"));
+    Notifications::Request()
+        .setTitle(tr("Search Engine"))
+        .setMessage(tr("Search has finished"))
+//      .setWidget(this);
+        .exec();
 
     if (m_activeSearchTab.isNull()) return; // The active tab was closed
 
@@ -338,8 +347,12 @@ void SearchWidget::searchFinished(bool cancelled)
 
 void SearchWidget::searchFailed()
 {
-    if (m_mainWindow->isNotificationsEnabled() && (m_mainWindow->currentTabWidget() != this))
-        m_mainWindow->showNotificationBaloon(tr("Search Engine"), tr("Search has failed"));
+    Notifications::Request()
+        .setTitle(tr("Search Engine"))
+        .setSeverity(Notifications::Severity::Error)
+        .setMessage(tr("Search has failed"))
+//         .setWidget(this);
+        .exec();
 
     if (m_activeSearchTab.isNull()) return; // The active tab was closed
 

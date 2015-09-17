@@ -19,6 +19,10 @@ unix:!macx: include(../unixconf.pri)
 # eCS(OS/2) specific configuration
 os2: include(../os2conf.pri)
 
+dbus {
+    QT += dbus
+}
+
 nogui {
     QT -= gui
     DEFINES += DISABLE_GUI

@@ -32,6 +32,10 @@ net/portforwarder.h
 net/private/geoipdatabase.h
 net/reverseresolution.h
 net/smtp.h
+notifications/dummynotifier.h
+notifications/notifier.h
+notifications/notificationsmanager.h
+notifications/request.h
 rss/private/rssparser.h
 rss/rssarticle.h
 rss/rssdownloadrule.h
@@ -89,6 +93,10 @@ net/portforwarder.cpp
 net/private/geoipdatabase.cpp
 net/reverseresolution.cpp
 net/smtp.cpp
+notifications/dummynotifier.cpp
+notifications/notifier.cpp
+notifications/notificationsmanager.cpp
+notifications/request.cpp
 rss/private/rssparser.cpp
 rss/rssarticle.cpp
 rss/rssdownloadrule.cpp
@@ -113,8 +121,20 @@ torrentfilter.cpp
 tristatebool.cpp
 )
 
+if (UNIX AND NOT APPLE AND DBUS)
+    add_subdirectory(notifications/qtnotify)
+    include_directories(notifications/qtnotify)
+    list(APPEND QBT_BASE_HEADERS
+        notifications/dbusnotifier.h
+    )
+    list(APPEND QBT_BASE_SOURCES
+        notifications/dbusnotifier.cpp
+    )
+   list(APPEND QBT_BASE_OPTIONAL_LINK_LIBRARIES qbt_qtnotify)
+endif (UNIX AND NOT APPLE AND DBUS)
+
 add_library(qbt_base STATIC ${QBT_BASE_HEADERS} ${QBT_BASE_SOURCES})
-target_link_libraries(qbt_base ZLIB::ZLIB LibtorrentRasterbar::LibTorrent)
+target_link_libraries(qbt_base ${QBT_BASE_OPTIONAL_LINK_LIBRARIES} ZLIB::ZLIB LibtorrentRasterbar::LibTorrent)
 target_link_qt_components(qbt_base Core Network Xml)
 if (QT4_FOUND)
     if (GUI)

@@ -63,6 +63,11 @@ namespace BitTorrent
     class TorrentHandle;
 }
 
+namespace Notifications
+{
+    class Manager;
+}
+
 class Application : public BaseApplication
 {
     Q_OBJECT
@@ -124,6 +129,7 @@ private:
 #ifndef DISABLE_WEBUI
     QPointer<WebUI> m_webui;
 #endif
+    QPointer<Notifications::Manager> m_notificationManager;
 
     // FileLog
     QPointer<FileLogger> m_fileLogger;
