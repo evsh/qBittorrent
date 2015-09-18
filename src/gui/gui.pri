@@ -50,7 +50,8 @@ HEADERS += \
     $$PWD/cookiesmodel.h \
     $$PWD/cookiesdialog.h \
     $$PWD/notifications/guinotificationsmanager.h \
-    $$PWD/downloadingdeadlinedialog.h
+    $$PWD/downloadingdeadlinedialog.h \
+    $$PWD/torrentmodel_p.h
 
 SOURCES += \
     $$PWD/mainwindow.cpp \
@@ -92,17 +93,24 @@ SOURCES += \
     $$PWD/cookiesmodel.cpp \
     $$PWD/cookiesdialog.cpp \
     $$PWD/notifications/guinotificationsmanager.cpp \
-    $$PWD/downloadingdeadlinedialog.cpp
+    $$PWD/downloadingdeadlinedialog.cpp \
+    $$PWD/torrentmodel_p.cpp
 
 win32|macx {
     HEADERS += $$PWD/programupdater.h
     SOURCES += $$PWD/programupdater.cpp
 }
 
-
 !dbus|win32|macx {
     HEADERS += $$PWD/notifications/systemtraynotifier.h
     SOURCES += $$PWD/notifications/systemtraynotifier.cpp
+}
+
+unix:!macx {
+    HEADERS += $$PWD/utils/colorutils.h \
+               $$PWD/utils/kdecolorscheme.h
+    SOURCES += $$PWD/utils/colorutils.cpp \
+               $$PWD/utils/kdecolorscheme.cpp
 }
 
 FORMS += \
