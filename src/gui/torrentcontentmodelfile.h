@@ -42,6 +42,8 @@ public:
     int fileIndex() const;
     void setPriority(int new_prio, bool update_parent = true);
     void setProgress(qreal progress);
+    void setAvalability(qreal avalability);
+
     ItemType itemType() const { return FileType; }
 
 private:

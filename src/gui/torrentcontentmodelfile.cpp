@@ -72,3 +72,9 @@ void TorrentContentModelFile::setProgress(qreal progress)
     m_remaining = (qulonglong)(m_size * (1.0 - m_progress));
     Q_ASSERT(m_progress <= 1.);
 }
+
+void TorrentContentModelFile::setAvalability(qreal avalability)
+{
+    m_availability = avalability;
+    Q_ASSERT(m_availability <= 1.);
+}

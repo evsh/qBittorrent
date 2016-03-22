@@ -48,6 +48,7 @@ public:
 
     void increaseSize(qulonglong delta);
     void recalculateProgress();
+    void recalculateAvailability();
     void updatePriority();
 
     void setPriority(int new_prio, bool update_parent = true);
