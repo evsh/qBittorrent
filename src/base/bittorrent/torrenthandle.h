@@ -362,6 +362,8 @@ namespace BitTorrent
         void handleAppendExtensionToggled();
         void saveResumeData();
 
+        QVector<qreal> filesAvailability() const;
+
     private:
         typedef boost::function<void ()> EventTrigger;
 
