@@ -45,6 +45,7 @@
 #endif
 #endif
 
+#include "base/unicodestrings.h"
 #include "base/utils/misc.h"
 #include "base/utils/string.h"
 #include "propertieswidget.h"
@@ -125,6 +126,19 @@ void PropListDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opti
                 break;
             }
             QItemDelegate::drawDisplay(painter, opt, option.rect, text);
+        }
+        break;
+    case AVAILABILITY: {
+            QItemDelegate::drawBackground(painter, opt, index);
+            qreal availability = index.data().toDouble() * 100.;
+            if (availability < 0) {
+                QItemDelegate::drawDisplay(painter, opt, option.rect, QLatin1String("N/A"));
+            }
+            else {
+                QString unit = QString::fromUtf8(C_THIN_SPACE) + QLatin1Char('%');
+                QString value = (availability == 100.0) ? QLatin1String("100") : Utils::String::fromDouble(availability, 1);
+                QItemDelegate::drawDisplay(painter, opt, option.rect, value + unit);
+            }
         }
         break;
     default:

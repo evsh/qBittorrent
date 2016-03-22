@@ -487,6 +487,7 @@ void PropertiesWidget::loadDynamicData()
             qDebug("Updating priorities in files tab");
             filesList->setUpdatesEnabled(false);
             PropListModel->model()->updateFilesProgress(m_torrent->filesProgress());
+            PropListModel->model()->updateFilesAvailability(m_torrent->filesAvailability());
             // XXX: We don't update file priorities regularly for performance
             // reasons. This means that priorities will not be updated if
             // set from the Web UI.
