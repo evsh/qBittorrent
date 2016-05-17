@@ -54,8 +54,6 @@ private:
     explicit GuiIconProvider(QObject *parent = 0);
     ~GuiIconProvider();
 #if (defined(Q_OS_UNIX) && !defined(Q_OS_MAC))
-    QIcon generateDifferentSizes(const QIcon &icon);
-
     bool m_useSystemTheme;
 #endif
 };
