@@ -60,9 +60,7 @@ QIcon GuiIconProvider::getIcon(const QString &iconId)
 {
 #if (defined(Q_OS_UNIX) && !defined(Q_OS_MAC))
     if (m_useSystemTheme) {
-        QIcon icon = QIcon::fromTheme(iconId, QIcon(IconProvider::getIconPath(iconId)));
-        icon = generateDifferentSizes(icon);
-        return icon;
+        return QIcon::fromTheme(iconId, QIcon(IconProvider::getIconPath(iconId)));
     }
 #endif
     return QIcon(IconProvider::getIconPath(iconId));
@@ -73,35 +71,6 @@ QIcon GuiIconProvider::getFlagIcon(const QString &countryIsoCode)
     if (countryIsoCode.isEmpty()) return QIcon();
     return QIcon(":/icons/flags/" + countryIsoCode.toLower() + ".png");
 }
-
-// Makes sure the icon is at least available in 16px and 24px size
-// It scales the icon from the theme if necessary
-// Otherwise, the UI looks broken if the icon is not available
-// in the correct size.
-#if (defined(Q_OS_UNIX) && !defined(Q_OS_MAC))
-QIcon GuiIconProvider::generateDifferentSizes(const QIcon &icon)
-{
-    QIcon newIcon;
-    QList<QSize> requiredSizes;
-    requiredSizes << QSize(16, 16) << QSize(24, 24) << QSize(32, 32);
-    QList<QIcon::Mode> modes;
-    modes << QIcon::Normal << QIcon::Active << QIcon::Selected << QIcon::Disabled;
-    foreach (const QSize &size, requiredSizes) {
-        foreach (QIcon::Mode mode, modes) {
-            QPixmap pixoff = icon.pixmap(size, mode, QIcon::Off);
-            if (pixoff.height() > size.height())
-                pixoff = pixoff.scaled(size, Qt::KeepAspectRatio,  Qt::SmoothTransformation);
-            newIcon.addPixmap(pixoff, mode, QIcon::Off);
-            QPixmap pixon = icon.pixmap(size, mode, QIcon::On);
-            if (pixon.height() > size.height())
-                pixon = pixoff.scaled(size, Qt::KeepAspectRatio,  Qt::SmoothTransformation);
-            newIcon.addPixmap(pixon, mode, QIcon::On);
-        }
-    }
-
-    return newIcon;
-}
-#endif
 
 QString GuiIconProvider::getIconPath(const QString &iconId)
 {
