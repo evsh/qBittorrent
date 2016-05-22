@@ -49,7 +49,8 @@ HEADERS += \
     $$PWD/search/searchsortmodel.h \
     $$PWD/cookiesmodel.h \
     $$PWD/cookiesdialog.h \
-    $$PWD/notifications/guinotificationsmanager.h
+    $$PWD/notifications/guinotificationsmanager.h \
+    $$PWD/downloadingdeadlinedialog.h
 
 SOURCES += \
     $$PWD/mainwindow.cpp \
@@ -90,7 +91,8 @@ SOURCES += \
     $$PWD/search/searchsortmodel.cpp \
     $$PWD/cookiesmodel.cpp \
     $$PWD/cookiesdialog.cpp \
-    $$PWD/notifications/guinotificationsmanager.cpp
+    $$PWD/notifications/guinotificationsmanager.cpp \
+    $$PWD/downloadingdeadlinedialog.cpp
 
 win32|macx {
     HEADERS += $$PWD/programupdater.h
@@ -123,6 +125,7 @@ FORMS += \
     $$PWD/search/pluginselectdlg.ui \
     $$PWD/search/pluginsourcedlg.ui \
     $$PWD/search/searchtab.ui \
-    $$PWD/cookiesdialog.ui
+    $$PWD/cookiesdialog.ui \
+    $$PWD/downloadingdeadlinedialog.ui
 
 RESOURCES += $$PWD/about.qrc

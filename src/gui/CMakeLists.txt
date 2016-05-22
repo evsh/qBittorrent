@@ -29,6 +29,7 @@ autoexpandabledialog.h
 cookiesdialog.h
 cookiesmodel.h
 deletionconfirmationdlg.h
+downloadingdeadlinedialog.h
 downloadfromurldlg.h
 executionlog.h
 guiiconprovider.h
@@ -68,6 +69,7 @@ advancedsettings.cpp
 autoexpandabledialog.cpp
 cookiesdialog.cpp
 cookiesmodel.cpp
+downloadingdeadlinedialog.cpp
 executionlog.cpp
 guiiconprovider.cpp
 ico.cpp
@@ -107,6 +109,7 @@ set(QBT_GUI_FORMS
 mainwindow.ui
 about.ui
 cookiesdialog.ui
+downloadingdeadlinedialog.ui
 preview.ui
 login.ui
 downloadfromurldlg.ui
