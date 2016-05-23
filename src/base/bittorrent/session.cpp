@@ -1721,8 +1721,17 @@ void Session::networkConfigurationChange(const QNetworkConfiguration& cfg)
     // be automatically picked up. Otherwise we would rebinding here to 0.0.0.0 again.
     if (configuredInterfaceName.isEmpty())
         return;
+
     const QString changedInterface = cfg.name();
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0) && QT_VERSION <= QT_VERSION_CHECK(5, 7, 0)
+    static QStringList bindedIPs = getListeningIPs();
+    const QStringList newBindedIPs = getListeningIPs();
+    if ((configuredInterfaceName == changedInterface) && (bindedIPs != newBindedIPs)) {
+        bindedIPs = newBindedIPs;
+#else
     if (configuredInterfaceName == changedInterface) {
+#endif
         Logger::instance()->addMessage(tr("Network configuration of %1 has changed, refreshing session binding", "e.g: Network configuration of tun0 has changed, refreshing session binding").arg(changedInterface), Log::INFO);
         setListeningPort();
     }
