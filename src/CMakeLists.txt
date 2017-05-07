@@ -54,15 +54,10 @@ endif (NOT WEBUI)
 if (STACKTRACE)
     add_definitions(-DSTACKTRACE)
 endif(STACKTRACE)
-# nogui {
-#     TARGET = qbittorrent-nox
-# } else {
-#     CONFIG(static) {
-#         DEFINES += QBT_STATIC_QT
-#         QTPLUGIN += qico
-#     }
-#     TARGET = qbittorrent
-# }
+
+if (PLASMA_INTEGRATION)
+    add_definitions(-DPLASMA_INTEGRATION)
+endif (PLASMA_INTEGRATION)
 
 if (UNIX AND NOT APPLE)
     add_compile_options(-Wformat -Wformat-security)

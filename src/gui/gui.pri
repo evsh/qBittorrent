@@ -158,6 +158,15 @@ macx {
     OBJECTIVE_SOURCES += $$PWD/macutilities.mm
 }
 
+plasma_integration {
+    HEADERS += $$PWD/theme/plasmacolorprovider.h \
+               $$PWD/utils/colorutils.h \
+               $$PWD/utils/plasmacolorscheme.h
+    SOURCES += $$PWD/theme/plasmacolorprovider.cpp \
+               $$PWD/utils/colorutils.cpp \
+               $$PWD/utils/plasmacolorscheme.cpp
+}
+
 FORMS += \
     $$PWD/about.ui \
     $$PWD/addnewtorrentdialog.ui \
