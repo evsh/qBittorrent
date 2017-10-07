@@ -217,6 +217,8 @@ OptionsDialog::OptionsDialog(QWidget *parent)
         const QSize size(std::numeric_limits<int>::max(), static_cast<int>(maxHeight * 1.2));
         m_ui->tabSelection->item(i)->setSizeHint(size);
     }
+    m_ui->labelRateLimitIcon->setPixmap(GuiIconProvider::instance()->getIcon(QLatin1String("speedometer")).pixmap(32, 32));
+    m_ui->labelAltRateLimitIcon->setPixmap(GuiIconProvider::instance()->getIcon(QLatin1String("speedometer-flipped")).pixmap(32, 32));
 
     m_ui->IpFilterRefreshBtn->setIcon(GuiIconProvider::instance()->getIcon("view-refresh"));
 
