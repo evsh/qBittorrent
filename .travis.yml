@@ -125,7 +125,7 @@ install:
       PATH="/usr/local/opt/ccache/libexec:$PATH"
       brew link --force zlib qt
 
-      wget https://builds.shiki.hu/homebrew/version
+      travis_retry wget https://builds.shiki.hu/homebrew/version
       if ! cmp --quiet "version" "$HOME/hombebrew_cache/version" ; then
         echo "Cached files are different from server. Downloading new ones."
         # First delete old files
@@ -133,8 +133,8 @@ install:
         mkdir "$HOME/hombebrew_cache"
         cp "version" $HOME/hombebrew_cache
         cd "$HOME/hombebrew_cache"
-        wget https://builds.shiki.hu/homebrew/libtorrent-rasterbar.rb
-        wget https://builds.shiki.hu/homebrew/libtorrent-rasterbar--1.1.9+git20180812.0bcf6cef23+patched-configure.el_capitan.bottle.tar.gz
+        travis_retry wget https://builds.shiki.hu/homebrew/libtorrent-rasterbar.rb
+        travis_retry wget https://builds.shiki.hu/homebrew/libtorrent-rasterbar--1.1.9+git20180812.0bcf6cef23+patched-configure.el_capitan.bottle.tar.gz
       fi
 
       # Copy custom libtorrent bottle to homebrew's cache so it can find and install it
